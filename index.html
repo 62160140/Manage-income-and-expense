@@ -7,7 +7,42 @@
   <title>โปรแกรมบัญชีรายรับ-รายจ่าย</title>
 </head>
 <body>
-  <h1>Hello world</h1>
+  <h2>โปรแกรมบัญชีรายรับ-รายจ่าย</h2>
+  <!-- -------------------- container -------------------- -->
+  <div class="container">
+   <h4>ยอดคงเหลือ(บาท)</h4>
+   <h1 id="balance">฿0.00</h1>
+   <!-- ------------------- div income expense -------------------- -->
+   <div class="income-expense-container">
+      <div>
+        <h4>รายรับ</h4>
+        <p class="money minus"  id="money-plus" >฿5000</p>
+      </div>
+      <div>
+        <h4>รายจ่าย</h4>
+        <p class="money plus"  id="money-minus" >-฿200</p>
+      </div>
+   </div>
+   <!-- ----------------- ประวัติธุรกรรม ------------------ -->
+   <h3>ประวัติธุรกรรม</h3>
+   <ul id="list" class="list">
+     <li class="minus">ซ่อมรถ <span>฿-4000</span> <button class="deleteBtn">x</button></li>
+     <li>ค่าข้าว <span>฿-200</span> <button class="deleteBtn">x</button></li>
+     <li class="plus">เงินเดือน <span>฿15000</span> <button class="deleteBtn">x</button></li>
+   </ul>
+  </div>
+  <!-- ----------------- แบบฟอร์มบันทึก ------------------ -->
+  <h3>เพิ่มธุรกรรม</h3>
+  <form action="" id="form">
+    <div class="form-control">
+      <label for="text">ชื่อรายการ</label>
+      <input type="text" name="" id="text" placeholder="ชื่อรายการธุรกรรม">
+      <br>
+      <label for="amount">จำนวนเงิน(+รายรับ , -รายจ่าย)</label>
+      <input type="number" name="" id="amount" placeholder="จำนวนเงิน">
+    </div>
+    <button class="btn">เพิ่มธุรกรรม</button>
+  </form>
 </body>
 <link rel="stylesheet" href="style.css">
 <script src="script.js"></script>
