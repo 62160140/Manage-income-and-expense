@@ -28,7 +28,7 @@ function addDataToList(transaction){
 
   // create li element
   const item = document.createElement('li');
-  item.innerHTML = `${transaction.text} <span>${symbol}${Math.abs(transaction.amount)}</span><button class="deleteBtn">x</button>`
+  item.innerHTML = `${transaction.text} <span>${symbol}${numberWithCommas(Math.abs(transaction.amount))}</span><button class="deleteBtn">x</button>`
   //add class  to li
   const status = transaction.amount<0 ? 'minus' : 'plus';
   item.className=status
@@ -52,10 +52,15 @@ function calculateMoney(){
   const expense = amounts.filter(item=>item<0).reduce((result,item)=>(result+=item),0)*-1
 
 
+
   //display
-  money_plus.innerHTML=`฿${income.toFixed(2)}`
-  money_minus.innerHTML=`฿${expense.toFixed(2)}`
-  balance.innerHTML=`฿${total.toFixed(2)}`;
+  money_plus.innerHTML=`฿${numberWithCommas(income.toFixed(2))}`
+  money_minus.innerHTML=`฿${numberWithCommas(expense.toFixed(2))}`
+  balance.innerHTML=`฿${numberWithCommas(total.toFixed(2))}`;
+}
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 init();
