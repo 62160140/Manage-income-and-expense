@@ -20,6 +20,7 @@ const transactions = dataTransaction;
 
 function init(){
   transactions.forEach(item=>addDataToList(item))
+  calculateMoney()
 }
 
 function addDataToList(transaction){
@@ -36,6 +37,25 @@ function addDataToList(transaction){
 
   //add child to list
   list.appendChild(item)
+}
+
+function calculateMoney(){
+  // กรองเฉพาะ amount
+  const amounts =  dataTransaction.map(item=>item.amount);
+  //ยอดคงเหลือ(รวม)
+  const total = amounts.reduce((result,item)=>{
+    return result += item;
+  },0)
+  //คำนวณรายรับ
+  const income = amounts.filter(item=>item>0).reduce((result,item)=>(result+=item),0)
+  //คำนวณรายจ่าย
+  const expense = amounts.filter(item=>item<0).reduce((result,item)=>(result+=item),0)*-1
+
+
+  //display
+  money_plus.innerHTML=`฿${income.toFixed(2)}`
+  money_minus.innerHTML=`฿${expense.toFixed(2)}`
+  balance.innerHTML=`฿${total.toFixed(2)}`;
 }
 
 init();
