@@ -11,24 +11,22 @@ const dataTransaction = [
   {id:1,text:"ค่าขนม",amount:-100},
   {id:2,text:"จ็อบพิเศษ",amount:140},
   {id:3,text:"เงินเดือน",amount:+15000},
-  {id:4,text:"ค่าห้อง",amount:-6000},
-  {id:5,text:"ค่าขนมลูกตาล",amount:-10000},
-  {id:6,text:"ค่ารับผ้า",amount:+2500},
 ]
 
 const transactions = dataTransaction;
 
 function init(){
-  transactions.forEach(item=>addDataToList(item))
+  transactions.forEach(item=>addTransactionToList(item))
   calculateMoney()
 }
 
-function addDataToList(transaction){
-  const symbol = transaction.amount<0 ? '-':'+';
 
+function addTransactionToList(transaction){
+  const symbol = transaction.amount<0 ? '-':'+';
+  const result = numberWithCommas(Math.abs(transaction.amount))
   // create li element
   const item = document.createElement('li');
-  item.innerHTML = `${transaction.text} <span>${symbol}${numberWithCommas(Math.abs(transaction.amount))}</span><button class="deleteBtn">x</button>`
+  item.innerHTML = `${transaction.text} <span>${symbol}${result}</span><button class="deleteBtn">x</button>`
   //add class  to li
   const status = transaction.amount<0 ? 'minus' : 'plus';
   item.className=status
@@ -62,5 +60,38 @@ function calculateMoney(){
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+function addTransaction(e){
+  e.preventDefault();
+  if(text.value.trim() == ""||amount.value.trim()==""){
+      alert("กรุณาป้อนข้อมูลให้ครบถ้วน")
+  }else{
+      const newTransaction={
+        id:generateAutoId(),
+        text:text.value.trim(),
+        amount:Number(amount.value.trim())
+      }
+
+      console.log(newTransaction);
+
+      transactions.push(newTransaction)
+      // console.log(transactions);
+      addTransactionToList(newTransaction)
+      //calculate เงินใหม่
+      calculateMoney();
+
+      //เคลียร์ช่อง input
+      amount.value ="";
+      text.value ="";
+  }
+
+}
+
+function generateAutoId(){
+  return Math.floor(Math.random()*100000)
+}
+
+//addEventListener
+form.addEventListener('submit',addTransaction)
 
 init();
