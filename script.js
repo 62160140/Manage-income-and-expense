@@ -13,9 +13,10 @@ const dataTransaction = [
   {id:3,text:"เงินเดือน",amount:+15000},
 ]
 
-const transactions = dataTransaction;
+let transactions = dataTransaction;
 
 function init(){
+  list.innerHTML = ''
   transactions.forEach(item=>addTransactionToList(item))
   calculateMoney()
 }
@@ -26,7 +27,7 @@ function addTransactionToList(transaction){
   const result = numberWithCommas(Math.abs(transaction.amount))
   // create li element
   const item = document.createElement('li');
-  item.innerHTML = `${transaction.text} <span>${symbol}${result}</span><button class="deleteBtn">x</button>`
+  item.innerHTML = `${transaction.text} <span>${symbol}${result}</span><button class="deleteBtn" onclick="removeData(${transaction.id})">x</button>`
   //add class  to li
   const status = transaction.amount<0 ? 'minus' : 'plus';
   item.className=status
@@ -87,11 +88,21 @@ function addTransaction(e){
 
 }
 
+function removeData(id){
+  //นำ id เข้ามาและ นำ id มาเปรียบเทียบกับ array Transactions
+
+  //delete 
+  transactions = (transactions.filter(item=>item.id !== id));
+
+  init();
+}
+
 function generateAutoId(){
   return Math.floor(Math.random()*100000)
 }
 
 //addEventListener
 form.addEventListener('submit',addTransaction)
+
 
 init();
